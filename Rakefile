@@ -7,7 +7,7 @@ namespace :jarvis do
     task :deploy, [:service, :image] do |task, args|
         args.with_defaults(:image => "")
         image = ""
-        unless args[:service].empty?
+        unless args[:image].to_s.empty?
             image = "--set service.image=#{args[:image]}"
         end
         sh "helm upgrade --install #{args[:service]} base-chart/. -f service-data/#{args[:service]}/values.yaml \
