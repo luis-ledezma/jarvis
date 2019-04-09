@@ -1,0 +1,23 @@
+{{- with .Values.service }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .name }}
+  labels:
+    app: {{ .appname }}
+spec:
+  ports:
+    - port: {{ .sourcePort }}
+      targetPort: {{ .port }}
+      name: {{ .name }}
+  selector:
+    app: {{ .appname }}
+  {{if .clusterIP}}
+  clusterIP: {{ .clusterIP }}
+  {{end}}
+  {{if .type}}
+  type: {{ .type }}
+  {{end}}
+
+{{- end}}

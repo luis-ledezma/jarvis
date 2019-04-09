@@ -1,0 +1,25 @@
+{{- with .Values.service }}
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .name }}
+  labels:
+    app: {{ .appname }}
+spec:
+  {{if .replicas}}
+  replicas: {{ .replicas }}
+  {{end}}
+  template:
+    metadata:
+      labels:
+        app: {{ .appname }}
+    spec:
+      containers:
+      - name: {{ .name }}
+        image: {{ .image }}
+        ports:
+        - containerPort: {{ .port }}
+          name: {{ .name }}
+
+{{- end}}
