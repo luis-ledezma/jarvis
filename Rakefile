@@ -25,8 +25,13 @@ namespace :jarvis do
     end
 
     desc "List all releases"
-    task :list do
+    task :releases do
         sh "helm list"
+    end
+
+    desc "Delete a release"
+    task :delete, [:service] do |task, args|
+        sh "helm delete #{args[:service]}"
     end
 
     desc "Rollback a service"
